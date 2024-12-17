@@ -3,7 +3,9 @@ package com.example.uygulama1;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+    EditText editTextSayi1,editTextSayi2;
+    RadioButton radioButtonTopla,radioButtonCikar,radioButtonCarp,radioButtonBol;
+    Button buttonHesapla;
+    TextView textViewSonuc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +29,37 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Button btnTikla;
-        btnTikla=findViewById(R.id.button_tikla);
-        btnTikla.setOnClickListener(new View.OnClickListener() {
+        editTextSayi1=findViewById(R.id.editTextNumber_sayi1);
+        editTextSayi2=findViewById(R.id.editTextNumber2);
+        radioButtonTopla=findViewById(R.id.radioButton_topla);
+        radioButtonCikar=findViewById(R.id.radioButton_cikar);
+        radioButtonCarp=findViewById(R.id.radioButton_carp);
+        radioButtonBol=findViewById(R.id.radioButton_bol);
+        buttonHesapla=findViewById(R.id.button_hesapla);
+        textViewSonuc=findViewById(R.id.textView_sonuc);
+
+        buttonHesapla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Merhaba", Toast.LENGTH_SHORT).show();
+                double sayi1=Double.parseDouble(editTextSayi1.getText().toString());
+                double sayi2=Double.parseDouble(editTextSayi2.getText().toString());
+                double sonuc=0;
+                if (radioButtonTopla.isChecked()){
+                    sonuc=sayi1+sayi2;
+                } else if (radioButtonCikar.isChecked()) {
+                    sonuc=sayi1-sayi2;
+
+                } else if (radioButtonCarp.isChecked()) {
+                    sonuc=sayi1*sayi2;
+
+                }
+                else{
+                    sonuc=sayi1/sayi2;
+                }
+                textViewSonuc.setText("Sonuc: "+sonuc);
             }
         });
+
+
     }
 }
